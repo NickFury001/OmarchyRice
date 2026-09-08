@@ -2,10 +2,10 @@
 set -euo pipefail
 
 # Set up flake.nix
-docker run --rm -v "$PWD:/workspace" -w /workspace rust:latest \
+sudo docker run --rm -v "$PWD:/workspace" -w /workspace rust:latest \
     cargo build --release --manifest-path ./install-rs/Cargo.toml
 
-docker run --rm -v "$PWD:/workspace" -w /workspace rust:latest \
+sudo docker run --rm -v "$PWD:/workspace" -w /workspace rust:latest \
     ./install-rs/target/release/install-rs "$USER"
 
 # Install Nix
