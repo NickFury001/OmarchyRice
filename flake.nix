@@ -16,12 +16,11 @@
 
 	outputs = { self, nixpkgs, home-manager, ... } @ inputs:
 		let
-# Dynamically grabs the username of whoever is running the command
-		user = builtins.getEnv "USER";
+# ANYONE CLONING THIS REPO: Change this string to your username!
+		user = "your_username_here";
 	in {
 		homeConfigurations."${user}" = home-manager.lib.homeManagerConfiguration {
 			pkgs = nixpkgs.legacyPackages."x86_64-linux";
-# Pass the dynamic variable down to home.nix
 			extraSpecialArgs = { inherit inputs user; };
 			modules = [ ./home.nix ];
 		};
