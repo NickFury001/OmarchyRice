@@ -1,28 +1,37 @@
 {
-	description = "My OS-agnostic system backup";
+  description = "My OS-agnostic system backup";
 
-	inputs = {
-# Pull the bleeding-edge Nix packages
-		nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+  inputs = {
+    # 1. Your global unstable channel
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-		home-manager = {
-			url = "github:nix-community/home-manager";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
+    # 2. Force Superfile to use YOUR unstable nixpkgs
+    superfile = {
+      url = "github:yorukot/superfile";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-# Your custom application repositories go here!
-		superfile.url = "github:yorukot/superfile";
-	};
+    # (Example) Any future repositories can follow this exact same pattern:
+    # some-other-app = {
+    #   url = "github:owner/repo";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+  };
 
-	outputs = { self, nixpkgs, home-manager, ... } @ inputs:
-		let
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs:
+    let
 # ANYONE CLONING THIS REPO: Change this string to your username!
-		user = "your_username_here";
-	in {
-		homeConfigurations."${user}" = home-manager.lib.homeManagerConfiguration {
-			pkgs = nixpkgs.legacyPackages."x86_64-linux";
-			extraSpecialArgs = { inherit inputs user; };
-			modules = [ ./home.nix ];
-		};
-	};
+      user = "your_username_here";
+    in {
+      homeConfigurations."${user}" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages."x86_64-linux";
+      extraSpecialArgs = { inherit inputs user; };
+      modules = [ ./home.nix ];
+    };
+  };
 }
