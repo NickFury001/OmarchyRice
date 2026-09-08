@@ -1,6 +1,6 @@
-{ pkgs, inputs, ... }: {
-  home.username = "yourusername";
-  home.homeDirectory = "/home/yourusername";
+{ pkgs, inputs, user, ... }: {
+  home.username = user;
+  home.homeDirectory = "/home/${user}";
   home.stateVersion = "24.11";
 
   # 1. INSTALL APPLICATIONS
