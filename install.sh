@@ -6,7 +6,7 @@ sudo docker run --rm -v "$PWD:/workspace" -w /workspace rust:latest \
     cargo build --release --manifest-path ./install-rs/Cargo.toml
 
 sudo docker run --rm -v "$PWD:/workspace" -w /workspace rust:latest \
-    ./install-rs/target/release/install-rs "$USER"
+    ./install-rs/target/release/install-rs "$USER" "flake.nix"
 
 # Install Nix
 sh <(curl -L https://nixos.org/nix/install) --daemon --yes
