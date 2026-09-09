@@ -6,8 +6,9 @@
   # 1. INSTALL APPLICATIONS
   home.packages = [
     pkgs.git
+    pkgs.kitty
     pkgs.fastfetch
-    # Installing from your custom GitHub URL input!
+    # Install from git URL due to out of date nix package.
     inputs.superfile.packages.${pkgs.system}.default
   ];
 
