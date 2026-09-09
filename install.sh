@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Set up flake.nix
-sudo docker run --rm -v "$PWD:/workspace" -w /workspace rust:latest \
-    cargo build --release --manifest-path ./install-rs/Cargo.toml
-
-sudo docker run --rm -v "$PWD:/workspace" -w /workspace rust:latest \
-    ./install-rs/target/release/install-rs "$USER" "flake.nix"
+sh ./fix_flake.sh
 
 # Install Nix
 sh <(curl -L https://nixos.org/nix/install) --daemon --yes
