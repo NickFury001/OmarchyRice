@@ -6,7 +6,10 @@
   # 1. INSTALL APPLICATIONS
   home.packages = [
     pkgs.git
+    
     pkgs.kitty
+    pkgs.mesa-demos
+
     pkgs.fastfetch
     # Install from git URL due to out of date nix package.
     inputs.superfile.packages.${pkgs.system}.default
