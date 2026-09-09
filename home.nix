@@ -3,6 +3,8 @@
   home.homeDirectory = "/home/${user}";
   home.stateVersion = "24.11";
 
+  targets.genericLinux.enable = true;
+
   # 1. INSTALL APPLICATIONS
   home.packages = [
     pkgs.git
